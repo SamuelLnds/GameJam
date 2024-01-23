@@ -14,6 +14,8 @@ var side2
 const punch = 1
 const kick = 2
 
+var isPlayerTurn = true
+
 func _ready():
 	set_health($Mob/EnemyVsplit/ProgressBar, enemy.health, enemy.health)
 	set_health($Player/PlayerVsplit/ProgressBar, State.player_health, State.player_health)
@@ -59,6 +61,8 @@ func _on_action_pressed(action_type):
 	
 	# Animation mob coup
 	# Animation mob mouvement
+	
+	# GERER LA BARRE DE VIE PAR NODE (PLAYER / MOB)
 
 func set_health(progress_bar, health, max_health):
 	var tween = create_tween()
@@ -66,19 +70,24 @@ func set_health(progress_bar, health, max_health):
 	progress_bar.max_value = max_health
 	progress_bar.value = health
 	
+	print(isPlayerTurn)
+	
 	if progress_bar == $Mob/EnemyVsplit/ProgressBar:
 		_on_health_animation_finished()
 		print("Foe health: " , health)
 	else:
 		print("Player health: " , health)
 	
-	
+	# CHANGER ETAT VARIABLE APRES TIMEOUT
 	
 func _on_health_animation_finished():
 	await get_tree().create_timer(2.0).timeout
+	isPlayerTurn = false
 	if current_foe_health > 0:
 		enemy_turn()
 
 func enemy_turn():
 	current_player_health = max(0, current_player_health - enemy.damage)
-	set_health($Player/PlayerVsplit/ProgressBar, current_player_health, State.player_max_health)	
+	set_health($Player/PlayerVsplit/ProgressBar, current_player_health, State.player_max_health)
+	isPlayerTurn = true
+	
