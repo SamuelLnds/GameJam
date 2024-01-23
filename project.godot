@@ -13,3 +13,11 @@ config_version=5
 config/name="GameJam"
 config/features=PackedStringArray("4.1", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+State="*res://Scenes/State.gd"
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"

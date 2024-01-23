@@ -1,0 +1,206 @@
+[gd_scene load_steps=13 format=3 uid="uid://b60pfe7d7agr6"]
+
+[ext_resource type="Texture2D" uid="uid://dnwqfxkbo7414" path="res://Assets/Placeholder/placeholder_background.png" id="1_h0h46"]
+[ext_resource type="Script" path="res://Scenes/battle.gd" id="1_qd71l"]
+[ext_resource type="Texture2D" uid="uid://bm3hlwdr4nfoy" path="res://Assets/Placeholder/placeholder_enemy.png" id="2_eenlr"]
+[ext_resource type="Texture2D" uid="uid://buuci72bsdnwh" path="res://icon.svg" id="4_1g2q4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lvx60"]
+bg_color = Color(1, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_likfn"]
+bg_color = Color(0, 1, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6omfn"]
+bg_color = Color(0, 0, 0, 0.392157)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 1
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ngo7d"]
+bg_color = Color(0, 0, 0, 0.392157)
+border_width_left = 1
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_af6m6"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m20nh"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.913725, 0.913725, 0.913725, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1u3l2"]
+bg_color = Color(1, 1, 1, 1)
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u554n"]
+bg_color = Color(1, 1, 1, 1)
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[node name="Battle" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qd71l")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+texture = ExtResource("1_h0h46")
+expand_mode = 5
+
+[node name="EnemyVsplit" type="VSplitContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.738715
+anchor_top = 0.345679
+anchor_right = 0.853299
+anchor_bottom = 0.543704
+offset_bottom = -12.32
+metadata/_edit_use_anchors_ = true
+
+[node name="ProgressBar" type="ProgressBar" parent="EnemyVsplit"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+size_flags_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_lvx60")
+theme_override_styles/fill = SubResource("StyleBoxFlat_likfn")
+max_value = 50.0
+step = 1.0
+value = 30.0
+show_percentage = false
+
+[node name="Enemy" type="TextureRect" parent="EnemyVsplit"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+texture = ExtResource("2_eenlr")
+stretch_mode = 3
+
+[node name="PlayerVsplit" type="VSplitContainer" parent="."]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 162.0
+offset_top = -102.0
+offset_right = 294.0
+offset_bottom = 14.0
+grow_vertical = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="PlayerVsplit"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+size_flags_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_lvx60")
+theme_override_styles/fill = SubResource("StyleBoxFlat_likfn")
+step = 1.0
+value = 90.0
+show_percentage = false
+
+[node name="Enemy" type="TextureRect" parent="PlayerVsplit"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+texture = ExtResource("4_1g2q4")
+stretch_mode = 3
+
+[node name="PanelContainer" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 175)
+layout_mode = 2
+offset_top = 473.0
+offset_right = 1152.0
+offset_bottom = 648.0
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="Dialog" type="Panel" parent="PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.25
+theme_override_styles/panel = SubResource("StyleBoxFlat_6omfn")
+
+[node name="ActionsPanel" type="Panel" parent="PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_ngo7d")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/ActionsPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="Actions" type="HBoxContainer" parent="PanelContainer/ActionsPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="Action1" type="Button" parent="PanelContainer/ActionsPanel/MarginContainer/Actions"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_af6m6")
+theme_override_styles/hover = SubResource("StyleBoxFlat_m20nh")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_1u3l2")
+keep_pressed_outside = true
+text = "Coup de poing"
+
+[node name="Action2" type="Button" parent="PanelContainer/ActionsPanel/MarginContainer/Actions"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_af6m6")
+theme_override_styles/hover = SubResource("StyleBoxFlat_m20nh")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_u554n")
+keep_pressed_outside = true
+text = "Coup de pied"

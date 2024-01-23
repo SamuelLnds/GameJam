@@ -1,0 +1,62 @@
+[gd_scene load_steps=5 format=3 uid="uid://bofwiedkcgon5"]
+
+[ext_resource type="Texture2D" uid="uid://3stmncvlomey" path="res://Assets/Placeholder/placeholder_enemy2.png" id="1_w2qrt"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eomcr"]
+bg_color = Color(1, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ek3d"]
+bg_color = Color(0, 1, 0, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6b5ag"]
+size = Vector2(131.5, 128)
+
+[node name="mob" type="Node2D"]
+
+[node name="EnemyVsplit" type="VSplitContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -66.0
+offset_top = -58.0
+offset_right = 66.0
+offset_bottom = 58.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="EnemyVsplit"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+size_flags_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_eomcr")
+theme_override_styles/fill = SubResource("StyleBoxFlat_6ek3d")
+max_value = 50.0
+step = 1.0
+value = 30.0
+show_percentage = false
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="EnemyVsplit"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyVsplit/CharacterBody2D"]
+position = Vector2(66.25, 84)
+shape = SubResource("RectangleShape2D_6b5ag")
+
+[node name="Enemy" type="TextureRect" parent="EnemyVsplit/CharacterBody2D"]
+offset_top = 20.0
+offset_right = 132.0
+offset_bottom = 116.0
+size_flags_horizontal = 4
+size_flags_vertical = 6
+texture = ExtResource("1_w2qrt")
+stretch_mode = 3

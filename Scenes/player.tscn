@@ -1,0 +1,58 @@
+[gd_scene load_steps=5 format=3 uid="uid://d0xj2axm4urk4"]
+
+[ext_resource type="Texture2D" uid="uid://buuci72bsdnwh" path="res://icon.svg" id="1_5md6h"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7p7ne"]
+bg_color = Color(1, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xsccv"]
+bg_color = Color(0, 1, 0, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gkqbu"]
+size = Vector2(128, 129.5)
+
+[node name="Player" type="Node2D"]
+
+[node name="PlayerVsplit" type="VSplitContainer" parent="."]
+offset_left = -64.5
+offset_top = -74.0
+offset_right = 64.5
+offset_bottom = 74.0
+grow_horizontal = 2
+grow_vertical = 2
+dragger_visibility = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="ProgressBar" type="ProgressBar" parent="PlayerVsplit"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_7p7ne")
+theme_override_styles/fill = SubResource("StyleBoxFlat_xsccv")
+step = 1.0
+value = 90.0
+show_percentage = false
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="PlayerVsplit"]
+position = Vector2(0, 20)
+metadata/_edit_group_ = true
+
+[node name="Player" type="TextureRect" parent="PlayerVsplit/CharacterBody2D"]
+offset_right = 128.0
+offset_bottom = 128.0
+size_flags_horizontal = 4
+size_flags_vertical = 6
+texture = ExtResource("1_5md6h")
+stretch_mode = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerVsplit/CharacterBody2D"]
+position = Vector2(64, 63.25)
+shape = SubResource("RectangleShape2D_gkqbu")

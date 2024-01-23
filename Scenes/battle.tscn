@@ -1,0 +1,145 @@
+[gd_scene load_steps=12 format=3 uid="uid://b60pfe7d7agr6"]
+
+[ext_resource type="Texture2D" uid="uid://dnwqfxkbo7414" path="res://Assets/Placeholder/placeholder_background.png" id="1_h0h46"]
+[ext_resource type="Script" path="res://Scenes/battle.gd" id="1_qd71l"]
+[ext_resource type="Resource" uid="uid://cd5yttm5yr6xp" path="res://Resources/mob.tres" id="2_ddc08"]
+[ext_resource type="PackedScene" uid="uid://d0xj2axm4urk4" path="res://Scenes/player.tscn" id="4_7lqkg"]
+[ext_resource type="PackedScene" uid="uid://bofwiedkcgon5" path="res://Scenes/mob.tscn" id="5_5umvr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6omfn"]
+bg_color = Color(0, 0, 0, 0.392157)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 1
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ngo7d"]
+bg_color = Color(0, 0, 0, 0.392157)
+border_width_left = 1
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_af6m6"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m20nh"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.913725, 0.913725, 0.913725, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1u3l2"]
+bg_color = Color(1, 1, 1, 1)
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u554n"]
+bg_color = Color(1, 1, 1, 1)
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[node name="Battle" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qd71l")
+enemy = ExtResource("2_ddc08")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+texture = ExtResource("1_h0h46")
+
+[node name="Player" parent="." instance=ExtResource("4_7lqkg")]
+position = Vector2(197, 264)
+
+[node name="Mob" parent="." instance=ExtResource("5_5umvr")]
+position = Vector2(948, 247)
+
+[node name="PanelContainer" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 175)
+layout_mode = 2
+offset_top = 473.0
+offset_right = 1152.0
+offset_bottom = 648.0
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="Dialog" type="Panel" parent="PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.25
+theme_override_styles/panel = SubResource("StyleBoxFlat_6omfn")
+
+[node name="ActionsPanel" type="Panel" parent="PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_ngo7d")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/ActionsPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="Actions" type="HBoxContainer" parent="PanelContainer/ActionsPanel/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="Action1" type="Button" parent="PanelContainer/ActionsPanel/MarginContainer/Actions"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_af6m6")
+theme_override_styles/hover = SubResource("StyleBoxFlat_m20nh")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_1u3l2")
+keep_pressed_outside = true
+text = "Coup de poing"
+
+[node name="Action2" type="Button" parent="PanelContainer/ActionsPanel/MarginContainer/Actions"]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_af6m6")
+theme_override_styles/hover = SubResource("StyleBoxFlat_m20nh")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_u554n")
+keep_pressed_outside = true
+text = "Coup de pied"
+
+[connection signal="pressed" from="PanelContainer/ActionsPanel/MarginContainer/Actions/Action1" to="." method="_on_action_1_pressed"]
+[connection signal="pressed" from="PanelContainer/ActionsPanel/MarginContainer/Actions/Action2" to="." method="_on_action_2_pressed"]
