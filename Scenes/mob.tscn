@@ -19,6 +19,21 @@ expand_margin_bottom = 1.0
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ek3d"]
 bg_color = Color(0, 1, 0, 1)
 
+[sub_resource type="Animation" id="Animation_rnie0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_slnsy"]
 resource_name = "enemy_died"
 length = 0.5
@@ -33,21 +48,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_rnie0"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mkn1s"]
@@ -90,7 +90,7 @@ scale = Vector2(0.041, 0.041)
 texture = ExtResource("3_e1iyj")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-root_node = NodePath("../EnemyVsplit/Enemy")
+root_node = NodePath("../EnemyVsplit")
 libraries = {
 "": SubResource("AnimationLibrary_mkn1s")
 }

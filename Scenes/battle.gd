@@ -46,8 +46,9 @@ func set_health(progress_bar, health, max_health):
 		get_tree().quit()
 	if current_foe_health == 0:
 		print("Player won!")
-		
-		await get_tree().create_timer(2.0).timeout		
+		await get_tree().create_timer(1.0).timeout		
+		side2.get_node('AnimationPlayer').play("enemy_died")
+		await get_tree().create_timer(1.0).timeout		
 		get_tree().quit()
 	
 	if progress_bar == $Mob/EnemyVsplit/ProgressBar:

@@ -54,7 +54,8 @@ func _on_action_pressed(action_type):
 	battle.set_health(battle.get_node("Mob/EnemyVsplit/ProgressBar"), battle.current_foe_health, get_parent().side2.enemy.health)
 	print("Set health")
 
-	await battle.pass_turn_to_mob()
+	if battle.current_foe_health > 0:
+		await battle.pass_turn_to_mob()
 
 func translate_to_mob_front():
 	var tween = create_tween()
