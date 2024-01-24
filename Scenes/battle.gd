@@ -19,7 +19,7 @@ var isPlayerTurn = true
 func _ready():
 	set_health($Mob/EnemyVsplit/ProgressBar, enemy.health, enemy.health)
 	set_health($Player/PlayerVsplit/ProgressBar, State.player_health, State.player_health)
-	$Mob/EnemyVsplit/CharacterBody2D/Enemy.texture = enemy.texture
+	$Mob/EnemyVsplit/Enemy.texture = enemy.texture
 	
 	current_player_health = State.player_health
 	current_foe_health = enemy.health
@@ -47,10 +47,11 @@ func _on_action_pressed(action_type):
 	current_foe_health = max(0, current_foe_health - damage)
 	set_health($Mob/EnemyVsplit/ProgressBar, current_foe_health, enemy.health)
 	
-
 	# Animation player mouvement
 	
 	# Animation mob mouvement
+	
+	pass_turn_to_mob()
 	
 	if current_foe_health <= 0:
 		print("Player won")
@@ -64,30 +65,31 @@ func _on_action_pressed(action_type):
 	
 	# GERER LA BARRE DE VIE PAR NODE (PLAYER / MOB)
 
+func pass_turn_to_mob():
+		isPlayerTurn = false
+		await get_tree().create_timer(2.0).timeout	
+		side2.attack_player()
+
 func set_health(progress_bar, health, max_health):
 	var tween = create_tween()
 	tween.tween_property(progress_bar, "value", health, 1.5)
-	progress_bar.max_value = max_health
-	progress_bar.value = health
+	tween.tween_callback(toto.bind(progress_bar, health, max_health))
 	
-	print(isPlayerTurn)
 	
 	if progress_bar == $Mob/EnemyVsplit/ProgressBar:
-		_on_health_animation_finished()
 		print("Foe health: " , health)
 	else:
 		print("Player health: " , health)
 	
+	
+func toto(progress_bar, health, max_health):
+	progress_bar.max_value = max_health
+	progress_bar.value = health
+	
 	# CHANGER ETAT VARIABLE APRES TIMEOUT
 	
-func _on_health_animation_finished():
-	await get_tree().create_timer(2.0).timeout
-	isPlayerTurn = false
-	if current_foe_health > 0:
-		enemy_turn()
-
-func enemy_turn():
-	current_player_health = max(0, current_player_health - enemy.damage)
-	set_health($Player/PlayerVsplit/ProgressBar, current_player_health, State.player_max_health)
-	isPlayerTurn = true
-	
+#func enemy_turn():
+	#current_player_health = max(0, current_player_health - enemy.damage)
+	#set_health($Player/PlayerVsplit/ProgressBar, current_player_health, State.player_max_health)
+	#isPlayerTurn = true
+	#

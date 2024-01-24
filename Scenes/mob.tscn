@@ -1,5 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bofwiedkcgon5"]
 
+[ext_resource type="Script" path="res://Scenes/mob.gd" id="1_hx02n"]
 [ext_resource type="Texture2D" uid="uid://3stmncvlomey" path="res://Assets/Placeholder/placeholder_enemy2.png" id="1_w2qrt"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eomcr"]
@@ -17,10 +18,8 @@ expand_margin_bottom = 1.0
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ek3d"]
 bg_color = Color(0, 1, 0, 1)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_6b5ag"]
-size = Vector2(131.5, 128)
-
 [node name="mob" type="Node2D"]
+script = ExtResource("1_hx02n")
 
 [node name="EnemyVsplit" type="VSplitContainer" parent="."]
 anchors_preset = 8
@@ -46,16 +45,8 @@ step = 1.0
 value = 30.0
 show_percentage = false
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="EnemyVsplit"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyVsplit/CharacterBody2D"]
-position = Vector2(66.25, 84)
-shape = SubResource("RectangleShape2D_6b5ag")
-
-[node name="Enemy" type="TextureRect" parent="EnemyVsplit/CharacterBody2D"]
-offset_top = 20.0
-offset_right = 132.0
-offset_bottom = 116.0
+[node name="Enemy" type="TextureRect" parent="EnemyVsplit"]
+layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6
 texture = ExtResource("1_w2qrt")

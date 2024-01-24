@@ -72,6 +72,7 @@ position = Vector2(197, 264)
 
 [node name="Mob" parent="." instance=ExtResource("5_5umvr")]
 position = Vector2(948, 247)
+enemy = ExtResource("2_ddc08")
 
 [node name="PanelContainer" type="HBoxContainer" parent="."]
 custom_minimum_size = Vector2(0, 175)
