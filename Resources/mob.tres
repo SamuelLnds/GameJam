@@ -1,11 +1,11 @@
 [gd_resource type="Resource" load_steps=3 format=3 uid="uid://cd5yttm5yr6xp"]
 
 [ext_resource type="Script" path="res://Scenes/BaseEnemy.gd" id="1_fcobn"]
-[ext_resource type="Texture2D" uid="uid://3stmncvlomey" path="res://Assets/Placeholder/placeholder_enemy2.png" id="2_r48i6"]
+[ext_resource type="Texture2D" uid="uid://b6w07idysru1y" path="res://Assets/Sprites/Hartal.png" id="2_5lrh5"]
 
 [resource]
 script = ExtResource("1_fcobn")
 name = "Mob1"
-texture = ExtResource("2_r48i6")
+texture = ExtResource("2_5lrh5")
 health = 50
-damage = 5
+damage = 15
