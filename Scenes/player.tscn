@@ -38,7 +38,7 @@ layout_mode = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_7p7ne")
 theme_override_styles/fill = SubResource("StyleBoxFlat_xsccv")
 step = 1.0
-value = 90.0
+value = 100.0
 show_percentage = false
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="PlayerVsplit"]

@@ -1,11 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://b60pfe7d7agr6"]
+[gd_scene load_steps=12 format=3 uid="uid://b60pfe7d7agr6"]
 
 [ext_resource type="Texture2D" uid="uid://dnwqfxkbo7414" path="res://Assets/Placeholder/placeholder_background.png" id="1_h0h46"]
 [ext_resource type="Script" path="res://Scenes/battle.gd" id="1_qd71l"]
 [ext_resource type="Resource" uid="uid://cd5yttm5yr6xp" path="res://Resources/mob.tres" id="2_ddc08"]
 [ext_resource type="PackedScene" uid="uid://d0xj2axm4urk4" path="res://Scenes/player.tscn" id="4_7lqkg"]
 [ext_resource type="PackedScene" uid="uid://bofwiedkcgon5" path="res://Scenes/mob.tscn" id="5_5umvr"]
-[ext_resource type="Script" path="res://Scenes/player.gd" id="5_oomjm"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6omfn"]
 bg_color = Color(0, 0, 0, 0.392157)
@@ -73,7 +72,6 @@ texture = ExtResource("1_h0h46")
 expand_mode = 2
 
 [node name="Player" parent="." instance=ExtResource("4_7lqkg")]
-script = ExtResource("5_oomjm")
 
 [node name="Mob" parent="." instance=ExtResource("5_5umvr")]
 enemy = ExtResource("2_ddc08")
