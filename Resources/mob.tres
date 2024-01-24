@@ -7,5 +7,5 @@
 script = ExtResource("1_fcobn")
 name = "Mob1"
 texture = ExtResource("2_r48i6")
-health = 500
+health = 50
 damage = 5
