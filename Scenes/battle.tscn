@@ -1,11 +1,13 @@
-[gd_scene load_steps=16 format=3 uid="uid://b60pfe7d7agr6"]
+[gd_scene load_steps=19 format=3 uid="uid://b60pfe7d7agr6"]
 
 [ext_resource type="Script" path="res://Scenes/battle.gd" id="1_qd71l"]
 [ext_resource type="Texture2D" uid="uid://cu374pp1mwaxu" path="res://Assets/Background/bg-world-1.png" id="3_e6p8w"]
 [ext_resource type="PackedScene" uid="uid://d0xj2axm4urk4" path="res://Scenes/player.tscn" id="4_7lqkg"]
 [ext_resource type="Script" path="res://Scenes/player.gd" id="5_oomjm"]
 [ext_resource type="PackedScene" uid="uid://jwonp2nducpi" path="res://Scenes/start.tscn" id="5_tqf7d"]
+[ext_resource type="Texture2D" uid="uid://cbgqixha40b0h" path="res://Assets/Sprites/Barnabe.png" id="5_ynfx3"]
 [ext_resource type="PackedScene" uid="uid://btl00yvq1qhvt" path="res://Scenes/Loose.tscn" id="6_ne8p8"]
+[ext_resource type="FontFile" uid="uid://24d2jjnlve4a" path="res://Assets/Fonts/Universal Serif 1.ttf" id="6_qgmjy"]
 [ext_resource type="PackedScene" uid="uid://bs0071mdf3dmc" path="res://Scenes/Win.tscn" id="7_u4lio"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6omfn"]
@@ -15,6 +17,10 @@ border_width_top = 2
 border_width_right = 1
 border_width_bottom = 2
 border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_fgx6e"]
+font = ExtResource("6_qgmjy")
+font_size = 12
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ngo7d"]
 bg_color = Color(0.517647, 0.0745098, 0.0745098, 1)
@@ -103,6 +109,37 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 1.25
 theme_override_styles/panel = SubResource("StyleBoxFlat_6omfn")
 
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/Dialog"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="Barnabe" type="HBoxContainer" parent="PanelContainer/Dialog/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="PanelContainer/Dialog/MarginContainer/Barnabe"]
+position = Vector2(105, 76)
+scale = Vector2(0.075, 0.075)
+texture = ExtResource("5_ynfx3")
+hframes = 4
+
+[node name="Label" type="Label" parent="PanelContainer/Dialog/MarginContainer/Barnabe"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+text = "cool ta vie"
+label_settings = SubResource("LabelSettings_fgx6e")
+autowrap_mode = 3
+
 [node name="ActionsPanel" type="Panel" parent="PanelContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -160,18 +197,26 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_42amw")
 keep_pressed_outside = true
 text = "Coup de pied"
 
-[node name="title screen 1" parent="." instance=ExtResource("5_tqf7d")]
-layout_mode = 1
-
 [node name="Loose" parent="." instance=ExtResource("6_ne8p8")]
 layout_mode = 1
 
 [node name="Win" parent="." instance=ExtResource("7_u4lio")]
 layout_mode = 1
 
+[node name="title screen 1" parent="." instance=ExtResource("5_tqf7d")]
+layout_mode = 2
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 155.0
+offset_bottom = 151.0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+volume_db = -2.0
+
 [connection signal="pressed" from="PanelContainer/ActionsPanel/MarginContainer/Actions/Action1" to="." method="_on_action_1_pressed"]
 [connection signal="pressed" from="PanelContainer/ActionsPanel/MarginContainer/Actions/Action2" to="." method="_on_action_2_pressed"]
-[connection signal="start" from="title screen 1" to="." method="_on_title_screen_1_start"]
 [connection signal="rejouer" from="Loose" to="." method="_on_loose_rejouer"]
 [connection signal="continuer" from="Win" to="." method="_on_win_continuer"]
 [connection signal="rejouer" from="Win" to="." method="_on_win_rejouer"]
+[connection signal="start" from="title screen 1" to="." method="_on_title_screen_1_start"]

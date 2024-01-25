@@ -13,9 +13,7 @@ extends Node2D
 
 @onready var playerAnimations = $PlayerVsplit/AnimationPlayer
 
-var paul_dead = preload("res://Assets/SFX/mort_paul.mp3")
 var hartal_on_hit = preload("res://Assets/SFX/seprenduncoup_hartal.mp3")
-var paul_win = preload("res://Assets/SFX/victoire_paul.mp3")
 
 @onready var audio_player = $AudioStreamPlayer 
 
@@ -72,9 +70,9 @@ func _on_action_pressed(action_type):
 		
 	await get_tree().create_timer(1.0).timeout
 	playerAnimations.play(action_type)
+	await playerAnimations.animation_finished
 	audio_player.stream = hartal_on_hit
 	audio_player.play()
-	await playerAnimations.animation_finished
 	battle.current_foe_health = max(0, battle.current_foe_health - damage)
 		
 	battle.set_health(battle.side2, battle.current_foe_health, get_parent().side2.enemy.health)

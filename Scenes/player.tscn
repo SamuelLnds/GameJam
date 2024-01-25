@@ -17,23 +17,6 @@ expand_margin_bottom = 1.0
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xsccv"]
 bg_color = Color(0, 1, 0, 1)
 
-[sub_resource type="Animation" id="Animation_53wl0"]
-resource_name = "walk"
-length = 0.6
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 0
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.15, 0.3, 0.45),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [1, 3, 4, 5]
-}
-
 [sub_resource type="Animation" id="Animation_mn712"]
 length = 0.001
 tracks/0/type = "value"
@@ -61,6 +44,22 @@ tracks/1/keys = {
 "values": [Vector2i(0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_fm86o"]
+resource_name = "kick"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 10, 11]
+}
+
 [sub_resource type="Animation" id="Animation_d4byg"]
 resource_name = "punch"
 length = 0.4
@@ -77,20 +76,21 @@ tracks/0/keys = {
 "values": [Vector2i(0, 0), Vector2i(2, 1), Vector2i(3, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_fm86o"]
-resource_name = "kick"
-length = 0.3
+[sub_resource type="Animation" id="Animation_53wl0"]
+resource_name = "walk"
+length = 0.6
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
+tracks/0/interp = 0
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [0, 10, 11]
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [1, 3, 4, 5]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_l7lqw"]

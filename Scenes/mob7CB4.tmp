@@ -1,0 +1,147 @@
+[gd_scene load_steps=11 format=3 uid="uid://bofwiedkcgon5"]
+
+[ext_resource type="Script" path="res://Scenes/mob.gd" id="1_hx02n"]
+[ext_resource type="Resource" uid="uid://cd5yttm5yr6xp" path="res://Resources/mob.tres" id="2_rvv31"]
+[ext_resource type="Texture2D" uid="uid://b6w07idysru1y" path="res://Assets/Sprites/Hartal.png" id="3_e1iyj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eomcr"]
+bg_color = Color(1, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ek3d"]
+bg_color = Color(0, 1, 0, 1)
+
+[sub_resource type="Animation" id="Animation_rnie0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Enemy:frame_coords")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_slnsy"]
+resource_name = "enemy_died"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_bdj6m"]
+resource_name = "hit"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Enemy:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 1), Vector2i(2, 0), Vector2i(1, 0), Vector2i(2, 0), Vector2i(0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_mjtyu"]
+resource_name = "walk"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Enemy:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3, 0.45),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 1), Vector2i(1, 1), Vector2i(2, 1), Vector2i(0, 2)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mkn1s"]
+_data = {
+"RESET": SubResource("Animation_rnie0"),
+"enemy_died": SubResource("Animation_slnsy"),
+"hit": SubResource("Animation_bdj6m"),
+"walk": SubResource("Animation_mjtyu")
+}
+
+[node name="mob" type="Node2D"]
+script = ExtResource("1_hx02n")
+enemy = ExtResource("2_rvv31")
+
+[node name="EnemyVsplit" type="VSplitContainer" parent="."]
+unique_name_in_owner = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -66.0
+offset_top = -175.0
+offset_right = 66.0
+offset_bottom = 175.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="EnemyVsplit"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+size_flags_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_eomcr")
+theme_override_styles/fill = SubResource("StyleBoxFlat_6ek3d")
+max_value = 30.0
+step = 1.0
+value = 30.0
+show_percentage = false
+
+[node name="Enemy" type="Sprite2D" parent="EnemyVsplit"]
+position = Vector2(66, 185)
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("3_e1iyj")
+hframes = 3
+vframes = 3
+frame = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="EnemyVsplit"]
+libraries = {
+"": SubResource("AnimationLibrary_mkn1s")
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

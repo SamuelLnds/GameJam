@@ -4,9 +4,10 @@ extends Node2D
 
 @onready var foeAnimations = $EnemyVsplit/AnimationPlayer
 
-var hartal_dead = preload("res://Assets/SFX/mort_hartal.mp3")
-var paul_on_hit = preload("res://Assets/SFX/seprenduncoup_paul.mp3")
+var paul_dead = preload("res://Assets/SFX/mort_paul.mp3")
 var hartal_win = preload("res://Assets/SFX/victoire_hartal.mp3")
+var paul_on_hit = preload("res://Assets/SFX/seprenduncoup_paul.mp3")
+var hartal_walk = preload("res://Assets/SFX/marche_hartal.mp3")
 
 @onready var audio_player = $AudioStreamPlayer 
 
@@ -38,20 +39,29 @@ func spawn_position():
 func attack_player():
 	await get_tree().create_timer(1.0).timeout
 	foeAnimations.play("walk")
-	print("Animation foe has played")
-	translate_to_player_front()
+	await translate_to_player_front()
 	
 	await get_tree().create_timer(1).timeout
-	foeAnimations.play("RESET")
 	foeAnimations.play("hit")	
-	await get_tree().create_timer(0.75).timeout
-
-	foeAnimations.play_backwards('walk')
+	await get_tree().create_timer(0.5).timeout
 	battle.current_player_health = max(0, battle.current_player_health - get_parent().side2.enemy.damage)
 	battle.set_health(get_parent().side1, battle.current_player_health, State.player_max_health)
-	await get_tree().create_timer(1.5).timeout
-	foeAnimations.play("RESET")
-	battle.isPlayerTurn = true
+	if get_parent().current_player_health <= 0:
+		audio_player.stream = paul_dead
+		audio_player.play()
+		await get_tree().create_timer(0.5).timeout		
+		audio_player.stream = hartal_win
+		audio_player.play()
+	else:
+		audio_player.stream = paul_on_hit
+		audio_player.play()
+		await get_tree().create_timer(0.75).timeout
+
+		foeAnimations.play_backwards('walk')
+		await get_tree().create_timer(1).timeout
+		foeAnimations.play("RESET")
+		battle.isPlayerTurn = true
+	
 
 func translate_to_player_front():
 	var tween = create_tween()
