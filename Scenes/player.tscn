@@ -139,3 +139,5 @@ root_node = NodePath("../Player")
 libraries = {
 "": SubResource("AnimationLibrary_l7lqw")
 }
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

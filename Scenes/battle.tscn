@@ -161,15 +161,12 @@ keep_pressed_outside = true
 text = "Coup de pied"
 
 [node name="title screen 1" parent="." instance=ExtResource("5_tqf7d")]
-visible = false
 layout_mode = 1
 
 [node name="Loose" parent="." instance=ExtResource("6_ne8p8")]
-visible = false
 layout_mode = 1
 
 [node name="Win" parent="." instance=ExtResource("7_u4lio")]
-visible = false
 layout_mode = 1
 
 [connection signal="pressed" from="PanelContainer/ActionsPanel/MarginContainer/Actions/Action1" to="." method="_on_action_1_pressed"]

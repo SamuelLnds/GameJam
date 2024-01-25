@@ -11,8 +11,6 @@ extends Control
 @onready var current_player_health = State.player_health
 @onready var current_foe_health
 
-
-
 var isPlayerTurn = true
 
 var mob_instance = preload("res://Scenes/mob.tscn")
@@ -48,7 +46,7 @@ func set_health(side, health, max_health):
 		$Loose.show()
 	if current_foe_health == 0:
 		await get_tree().create_timer(1.0).timeout		
-		side2.get_node('EnemyVsplit/AnimationPlayer').play("enemy_died")
+		side2.foeAnimations.play("enemy_died")
 		await get_tree().create_timer(1.0).timeout
 		_on_enemy_death()
 	
@@ -79,6 +77,7 @@ func spawn_enemy():
 		new_enemy.enemy = enemy_resource
 		add_child(new_enemy)
 		side2 = new_enemy
+		
 		current_foe_health = side2.enemy.health
 		side1.enemy = get_node("mob")
 		if isPlayerTurn != true:

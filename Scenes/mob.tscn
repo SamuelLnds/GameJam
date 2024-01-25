@@ -107,6 +107,7 @@ script = ExtResource("1_hx02n")
 enemy = ExtResource("2_rvv31")
 
 [node name="EnemyVsplit" type="VSplitContainer" parent="."]
+unique_name_in_owner = true
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -142,3 +143,5 @@ frame = 3
 libraries = {
 "": SubResource("AnimationLibrary_mkn1s")
 }
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

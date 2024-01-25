@@ -4,6 +4,12 @@ extends Node2D
 
 @onready var foeAnimations = $EnemyVsplit/AnimationPlayer
 
+var hartal_dead = preload("res://Assets/SFX/mort_hartal.mp3")
+var paul_on_hit = preload("res://Assets/SFX/seprenduncoup_paul.mp3")
+var hartal_win = preload("res://Assets/SFX/victoire_hartal.mp3")
+
+@onready var audio_player = $AudioStreamPlayer 
+
 var battle
 var player 
 
