@@ -5,7 +5,8 @@
 
 [resource]
 script = ExtResource("1_whlmq")
-name = "Mob1"
+name = "Hartal"
 texture = ExtResource("2_by2gy")
-health = 150
+health = 100
 damage = 15
+isBoss = true

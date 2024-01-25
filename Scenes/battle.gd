@@ -6,10 +6,10 @@ extends Control
 @onready var kick_button = get_node('PanelContainer/ActionsPanel/MarginContainer/Actions/Action2')
 
 @onready var side1 = $Player
-@onready var side2 = $Mob
+@onready var side2
 
 @onready var current_player_health = State.player_health
-@onready var current_foe_health = side2.enemy.health
+@onready var current_foe_health
 
 @onready var isPlayerTurn = true
 
@@ -17,10 +17,11 @@ var mob_instance = preload("res://Scenes/mob.tscn")
 
 func _ready():
 	
+	spawn_enemy()
 	
-	set_health($Mob/EnemyVsplit/ProgressBar, side2.enemy.health, side2.enemy.health)
-	set_health($Player/PlayerVsplit/ProgressBar, State.player_health, State.player_health)
-	$Mob/EnemyVsplit/Enemy.texture = side2.enemy.texture
+	set_health(side2, side2.enemy.health, side2.enemy.health)
+	set_health(side1, State.player_health, State.player_health)
+	side2.get_node('EnemyVsplit/Enemy').texture = side2.enemy.texture
 	
 	update_button_states()
 	
@@ -36,11 +37,8 @@ func update_button_states():
 	punch_button.disabled = not isPlayerTurn
 	kick_button.disabled = not isPlayerTurn
 
-func set_health(progress_bar, health, max_health):
-	print("function set health started")
-	var tween = create_tween()
-	tween.tween_property(progress_bar, "value", health, 1.5)
-	tween.tween_callback(bar_update_callback.bind(progress_bar, health, max_health))
+func set_health(side, health, max_health):
+	side.decrease_health(health, max_health, bar_update_callback)
 
 	if current_player_health <= 0:
 		print("Player died...")
@@ -79,10 +77,15 @@ func spawn_enemy():
 		var enemy_scene = preload("res://Scenes/mob.tscn")
 		var new_enemy = enemy_scene.instantiate()
 		new_enemy.enemy = enemy_resource
-		get_parent().add_child(new_enemy)
+		add_child(new_enemy)
+		side2 = new_enemy
+		current_foe_health = side2.enemy.health
+		var battle_children = get_children()
+		for i in battle_children:
+			print("battle_children child: " ,i)
+		side1.enemy = get_node("mob")
 		if isPlayerTurn != true:
 			isPlayerTurn = true
-			side1.enemy = get_parent().get_node("Mob")
 			update_button_states()
 		current_enemy_index += 1
 	else:

@@ -3,7 +3,7 @@ extends Node2D
 @export var player : Resource = null
 
 @onready var battle = get_parent()
-@onready var enemy = get_parent().get_node("Mob")
+@onready var enemy
 
 @onready var punch_button = get_parent().get_node('PanelContainer/ActionsPanel/MarginContainer/Actions/Action1')
 @onready var kick_button = get_parent().get_node('PanelContainer/ActionsPanel/MarginContainer/Actions/Action2')
@@ -34,6 +34,11 @@ func _ready():
 func _process(_delta):
 	pass
 
+func decrease_health(health, max_health, callback):
+	var tween = create_tween()
+	tween.tween_property($PlayerVsplit/ProgressBar, "value", health, 1.5)
+	tween.tween_callback(callback.bind($PlayerVsplit/ProgressBar, health, max_health))
+
 func _on_action_1_pressed():
 	_on_action_pressed(punch)
 
@@ -57,7 +62,7 @@ func _on_action_pressed(action_type):
 
 	battle.current_foe_health = max(0, battle.current_foe_health - damage)
 		
-	battle.set_health(battle.get_node("Mob/EnemyVsplit/ProgressBar"), battle.current_foe_health, get_parent().side2.enemy.health)
+	battle.set_health(battle.side2, battle.current_foe_health, get_parent().side2.enemy.health)
 	print("Set health")
 
 	if battle.current_foe_health > 0:

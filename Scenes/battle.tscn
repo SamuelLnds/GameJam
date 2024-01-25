@@ -1,9 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://b60pfe7d7agr6"]
+[gd_scene load_steps=13 format=3 uid="uid://b60pfe7d7agr6"]
 
 [ext_resource type="Script" path="res://Scenes/battle.gd" id="1_qd71l"]
 [ext_resource type="Texture2D" uid="uid://ddi4xr3jh0m4h" path="res://Assets/Background/bg-world-1.png" id="3_e6p8w"]
 [ext_resource type="PackedScene" uid="uid://d0xj2axm4urk4" path="res://Scenes/player.tscn" id="4_7lqkg"]
-[ext_resource type="PackedScene" uid="uid://bofwiedkcgon5" path="res://Scenes/mob.tscn" id="5_5umvr"]
 [ext_resource type="Script" path="res://Scenes/player.gd" id="5_oomjm"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6omfn"]
@@ -79,9 +78,6 @@ expand_mode = 2
 [node name="Player" parent="." instance=ExtResource("4_7lqkg")]
 position = Vector2(250, 250)
 script = ExtResource("5_oomjm")
-
-[node name="Mob" parent="." instance=ExtResource("5_5umvr")]
-position = Vector2(900, 263)
 
 [node name="PanelContainer" type="HBoxContainer" parent="."]
 custom_minimum_size = Vector2(0, 175)

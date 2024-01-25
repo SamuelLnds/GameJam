@@ -7,5 +7,6 @@
 script = ExtResource("1_xbhp0")
 name = "Mob2"
 texture = ExtResource("2_sxyeq")
-health = 50
-damage = 10
+health = 30
+damage = 5
+isBoss = false
