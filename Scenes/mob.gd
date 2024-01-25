@@ -2,17 +2,17 @@ extends Node2D
 
 @export var enemy : Resource = null
 
+@onready var foeAnimations = $EnemyVsplit/AnimationPlayer
+
 var battle
 var player 
 
 var reference_viewport_size = Vector2(1280, 720)
 
+
 func _ready():
 	spawn_position()
 	battle = get_parent()
-	var battle_children = battle.get_children()
-	for i in battle_children:
-		print("battle_children child: ", i)
 	player = battle.get_node("Player")
 
 func _process(_delta):
@@ -30,13 +30,21 @@ func spawn_position():
 	scale = scale_factor
 
 func attack_player():
-	await get_tree().create_timer(2.0).timeout
-	translate_to_player_front()
 	await get_tree().create_timer(1.0).timeout
+	foeAnimations.play("walk")
+	print("Animation foe has played")
+	translate_to_player_front()
+	
+	await get_tree().create_timer(1).timeout
+	foeAnimations.play("RESET")
+	foeAnimations.play("hit")	
+	await get_tree().create_timer(0.75).timeout
+
+	foeAnimations.play_backwards('walk')
 	battle.current_player_health = max(0, battle.current_player_health - get_parent().side2.enemy.damage)
 	battle.set_health(get_parent().side1, battle.current_player_health, State.player_max_health)
-	await get_tree().create_timer(2).timeout	
-	print("It's the player's turn")
+	await get_tree().create_timer(1.5).timeout
+	foeAnimations.play("RESET")
 	battle.isPlayerTurn = true
 
 func translate_to_player_front():

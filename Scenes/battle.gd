@@ -11,7 +11,9 @@ extends Control
 @onready var current_player_health = State.player_health
 @onready var current_foe_health
 
-@onready var isPlayerTurn = true
+
+
+var isPlayerTurn = true
 
 var mob_instance = preload("res://Scenes/mob.tscn")
 
@@ -37,7 +39,7 @@ func pass_turn_to_mob():
 
 func update_button_states():
 	punch_button.disabled = not isPlayerTurn
-	kick_button.disabled = not isPlayerTurn
+	kick_button.disabled = not isPlayerTurn or side1.hasKicked
 
 func set_health(side, health, max_health):
 	side.decrease_health(health, max_health, bar_update_callback)
@@ -45,9 +47,8 @@ func set_health(side, health, max_health):
 	if current_player_health <= 0:
 		$Loose.show()
 	if current_foe_health == 0:
-		print("Player won!")
 		await get_tree().create_timer(1.0).timeout		
-		side2.get_node('AnimationPlayer').play("enemy_died")
+		side2.get_node('EnemyVsplit/AnimationPlayer').play("enemy_died")
 		await get_tree().create_timer(1.0).timeout
 		_on_enemy_death()
 	
@@ -73,16 +74,12 @@ var current_enemy_index = 0
 func spawn_enemy():
 	if current_enemy_index < enemy_wave.size():
 		var enemy_resource = load(enemy_wave[current_enemy_index])
-		print(enemy_resource)
 		var enemy_scene = preload("res://Scenes/mob.tscn")
 		var new_enemy = enemy_scene.instantiate()
 		new_enemy.enemy = enemy_resource
 		add_child(new_enemy)
 		side2 = new_enemy
 		current_foe_health = side2.enemy.health
-		var battle_children = get_children()
-		for i in battle_children:
-			print("battle_children child: " ,i)
 		side1.enemy = get_node("mob")
 		if isPlayerTurn != true:
 			isPlayerTurn = true
@@ -90,26 +87,23 @@ func spawn_enemy():
 		current_enemy_index += 1
 	else:
 		$Win.show()
- 
-
 
 func _on_win_continuer():
 	get_tree().quit()
 	
 
 func _on_win_rejouer():
-	set_health($Mob/EnemyVsplit/ProgressBar, side2.enemy.health, side2.enemy.health)
-	set_health($Player/PlayerVsplit/ProgressBar, State.player_health, State.player_health)
-	$Mob/EnemyVsplit/Enemy.texture = side2.enemy.texture
+	current_enemy_index = 0	
+	spawn_enemy()
 	
 	update_button_states()
 	$Win.hide()
 
 
 func _on_loose_rejouer():
-	set_health($Mob/EnemyVsplit/ProgressBar, side2.enemy.health, side2.enemy.health)
-	set_health($Player/PlayerVsplit/ProgressBar, State.player_health, State.player_health)
-	$Mob/EnemyVsplit/Enemy.texture = side2.enemy.texture
+	set_health(side2, side2.enemy.health, side2.enemy.health)
+	set_health(side1, State.player_health, State.player_health)
+	side2.get_node('EnemyVsplit/Enemy').texture = side2.enemy.texture
 	
 	update_button_states()
 	$Loose.hide()

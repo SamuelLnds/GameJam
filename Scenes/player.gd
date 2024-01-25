@@ -11,6 +11,9 @@ extends Node2D
 @onready var init_position = self.position
 @onready var position_after_resize = self.position
 
+@onready var playerAnimations = $PlayerVsplit/AnimationPlayer
+
+var hasKicked = false
 
 var reference_viewport_size = Vector2(1280, 720)
 
@@ -40,10 +43,15 @@ func decrease_health(health, max_health, callback):
 	tween.tween_callback(callback.bind($PlayerVsplit/ProgressBar, health, max_health))
 
 func _on_action_1_pressed():
-	_on_action_pressed(punch)
+	_on_action_pressed('punch')
+	if hasKicked:
+		hasKicked = false
+	
 
 func _on_action_2_pressed():
-	_on_action_pressed(kick)
+	if not hasKicked:
+		_on_action_pressed('kick')
+		hasKicked = true
 
 func _on_action_pressed(action_type):
 	
@@ -51,26 +59,33 @@ func _on_action_pressed(action_type):
 	battle.update_button_states()
 	await translate_to_mob_front()
 	
-	await get_tree().create_timer(1.0).timeout
-
-	if action_type == punch:
+	if action_type == 'punch':
 		damage = State.punch_damage
-		print("Punch: ", State.punch_damage)
-	elif action_type == kick:
+	elif action_type == 'kick':
 		damage = State.kick_damage
-		print("Kick: ", State.kick_damage)
-
+		
+	await get_tree().create_timer(1.0).timeout
+	playerAnimations.play(action_type)
+	await playerAnimations.animation_finished
 	battle.current_foe_health = max(0, battle.current_foe_health - damage)
 		
 	battle.set_health(battle.side2, battle.current_foe_health, get_parent().side2.enemy.health)
-	print("Set health")
+	playerAnimations.play("RESET")
+	await get_tree().create_timer(0.5).timeout
 
+	playerAnimations.play_backwards('walk')
+	await get_tree().create_timer(1).timeout
+	playerAnimations.play("RESET")
+	
 	if battle.current_foe_health > 0:
 		await battle.pass_turn_to_mob()
+		
+		
 
 func translate_to_mob_front():
 	var tween = create_tween()
 	var target_position = enemy.position + Vector2(-150, 0)
 	tween.tween_property(self, "position", target_position, 1).set_trans(Tween.TRANS_LINEAR)
+	playerAnimations.play("walk")
 	tween.tween_interval(1)
 	tween.tween_property(self, "position", position_after_resize, 1).set_trans(Tween.TRANS_LINEAR)
