@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://cc8kbln40ny8k"]
+
+[ext_resource type="Script" path="res://Scenes/BaseEnemy.gd" id="1_whlmq"]
+[ext_resource type="Texture2D" uid="uid://b6w07idysru1y" path="res://Assets/Sprites/Hartal.png" id="2_by2gy"]
+
+[resource]
+script = ExtResource("1_whlmq")
+name = "Mob1"
+texture = ExtResource("2_by2gy")
+health = 150
+damage = 15

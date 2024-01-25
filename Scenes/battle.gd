@@ -13,7 +13,10 @@ extends Control
 
 @onready var isPlayerTurn = true
 
+var mob_instance = preload("res://Scenes/mob.tscn")
+
 func _ready():
+	
 	
 	set_health($Mob/EnemyVsplit/ProgressBar, side2.enemy.health, side2.enemy.health)
 	set_health($Player/PlayerVsplit/ProgressBar, State.player_health, State.player_health)
@@ -22,7 +25,6 @@ func _ready():
 	update_button_states()
 	
 
-	
 func pass_turn_to_mob():
 		isPlayerTurn = false
 		update_button_states()
@@ -42,21 +44,46 @@ func set_health(progress_bar, health, max_health):
 
 	if current_player_health <= 0:
 		print("Player died...")
-		await get_tree().create_timer(2.0).timeout			
+		await get_tree().create_timer(2.0).timeout
 		get_tree().quit()
 	if current_foe_health == 0:
 		print("Player won!")
 		await get_tree().create_timer(1.0).timeout		
 		side2.get_node('AnimationPlayer').play("enemy_died")
-		await get_tree().create_timer(1.0).timeout		
-		get_tree().quit()
-	
-	if progress_bar == $Mob/EnemyVsplit/ProgressBar:
-		print("Foe health: " , health)
-	else:
-		print("Player health: " , health)
+		await get_tree().create_timer(1.0).timeout
+		_on_enemy_death()
 	
 	
 func bar_update_callback(progress_bar, health, max_health):
 	progress_bar.max_value = max_health
 	progress_bar.value = health
+
+func _on_enemy_death():
+	side2.queue_free()
+	await get_tree().create_timer(2.0).timeout
+	spawn_enemy()
+	
+
+@onready var enemy_wave = [
+	"res://Resources/mob.tres",
+	"res://Resources/mob2.tres",
+	"res://Resources/Hartal.tres"
+]
+
+var current_enemy_index = 0
+
+func spawn_enemy():
+	if current_enemy_index < enemy_wave.size():
+		var enemy_resource = load(enemy_wave[current_enemy_index])
+		print(enemy_resource)
+		var enemy_scene = preload("res://Scenes/mob.tscn")
+		var new_enemy = enemy_scene.instantiate()
+		new_enemy.enemy = enemy_resource
+		get_parent().add_child(new_enemy)
+		if isPlayerTurn != true:
+			isPlayerTurn = true
+			side1.enemy = get_parent().get_node("Mob")
+			update_button_states()
+		current_enemy_index += 1
+	else:
+		print("All enemies defeated in this wave!")

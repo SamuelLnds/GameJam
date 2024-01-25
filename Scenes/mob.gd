@@ -8,10 +8,16 @@ extends Node2D
 var reference_viewport_size = Vector2(1280, 720)
 
 func _ready():
-	pass
+	spawn_position()
 
 func _process(_delta):
 	pass
+
+func spawn_position():
+	var screen_size = get_viewport().size
+	position = Vector2(screen_size.x * 0.75, screen_size.y * 0.5)
+	var scale_factor = Vector2(screen_size) / reference_viewport_size
+	scale = scale_factor
 
 func attack_player():
 	await get_tree().create_timer(2.0).timeout
@@ -26,7 +32,7 @@ func attack_player():
 func translate_to_player_front():
 	var tween = create_tween()
 	var init_position = self.position
-	var target_position = player.init_position + Vector2(150, 0)
+	var target_position = player.position_after_resize + Vector2(300, 0)
 	tween.tween_property(self, "position", target_position, 1).set_trans(Tween.TRANS_LINEAR)
 	tween.tween_interval(1)
 	tween.tween_property(self, "position", init_position, 1).set_trans(Tween.TRANS_LINEAR)

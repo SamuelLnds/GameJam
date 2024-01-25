@@ -9,6 +9,7 @@ extends Node2D
 @onready var kick_button = get_parent().get_node('PanelContainer/ActionsPanel/MarginContainer/Actions/Action2')
 
 @onready var init_position = self.position
+@onready var position_after_resize = self.position
 
 
 var reference_viewport_size = Vector2(1280, 720)
@@ -23,8 +24,13 @@ var damage = 0
 func _ready():
 	punch_button.pressed.connect(_on_action_1_pressed)
 	kick_button.pressed.connect(_on_action_2_pressed)
-
-
+	
+	var screen_size = get_viewport().size
+	position = Vector2(screen_size.x * 0.25, screen_size.y * 0.5)
+	var scale_factor = Vector2(screen_size) / reference_viewport_size
+	scale = scale_factor
+	position_after_resize = position
+	
 func _process(_delta):
 	pass
 
@@ -59,7 +65,7 @@ func _on_action_pressed(action_type):
 
 func translate_to_mob_front():
 	var tween = create_tween()
-	var target_position = enemy.position + Vector2(-150, 0)
+	var target_position = enemy.position + Vector2(-300, 0)
 	tween.tween_property(self, "position", target_position, 1).set_trans(Tween.TRANS_LINEAR)
 	tween.tween_interval(1)
-	tween.tween_property(self, "position", init_position, 1).set_trans(Tween.TRANS_LINEAR)
+	tween.tween_property(self, "position", position_after_resize, 1).set_trans(Tween.TRANS_LINEAR)
