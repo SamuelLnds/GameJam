@@ -70,7 +70,7 @@ func _on_action_pressed(action_type):
 
 func translate_to_mob_front():
 	var tween = create_tween()
-	var target_position = enemy.position + Vector2(-300, 0)
+	var target_position = enemy.position + Vector2(-150, 0)
 	tween.tween_property(self, "position", target_position, 1).set_trans(Tween.TRANS_LINEAR)
 	tween.tween_interval(1)
 	tween.tween_property(self, "position", position_after_resize, 1).set_trans(Tween.TRANS_LINEAR)

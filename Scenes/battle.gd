@@ -24,6 +24,8 @@ func _ready():
 	side2.get_node('EnemyVsplit/Enemy').texture = side2.enemy.texture
 	
 	update_button_states()
+	$Win.hide()
+	$Loose.hide()
 	
 
 func pass_turn_to_mob():
@@ -41,9 +43,7 @@ func set_health(side, health, max_health):
 	side.decrease_health(health, max_health, bar_update_callback)
 
 	if current_player_health <= 0:
-		print("Player died...")
-		await get_tree().create_timer(2.0).timeout
-		get_tree().quit()
+		$Loose.show()
 	if current_foe_health == 0:
 		print("Player won!")
 		await get_tree().create_timer(1.0).timeout		
@@ -89,4 +89,31 @@ func spawn_enemy():
 			update_button_states()
 		current_enemy_index += 1
 	else:
-		print("All enemies defeated in this wave!")
+		$Win.show()
+ 
+
+
+func _on_win_continuer():
+	get_tree().quit()
+	
+
+func _on_win_rejouer():
+	set_health($Mob/EnemyVsplit/ProgressBar, side2.enemy.health, side2.enemy.health)
+	set_health($Player/PlayerVsplit/ProgressBar, State.player_health, State.player_health)
+	$Mob/EnemyVsplit/Enemy.texture = side2.enemy.texture
+	
+	update_button_states()
+	$Win.hide()
+
+
+func _on_loose_rejouer():
+	set_health($Mob/EnemyVsplit/ProgressBar, side2.enemy.health, side2.enemy.health)
+	set_health($Player/PlayerVsplit/ProgressBar, State.player_health, State.player_health)
+	$Mob/EnemyVsplit/Enemy.texture = side2.enemy.texture
+	
+	update_button_states()
+	$Loose.hide()
+
+
+func _on_title_screen_1_start():
+	$"title screen 1".queue_free()

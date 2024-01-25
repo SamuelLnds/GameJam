@@ -1,9 +1,12 @@
-[gd_scene load_steps=13 format=3 uid="uid://b60pfe7d7agr6"]
+[gd_scene load_steps=16 format=3 uid="uid://b60pfe7d7agr6"]
 
 [ext_resource type="Script" path="res://Scenes/battle.gd" id="1_qd71l"]
 [ext_resource type="Texture2D" uid="uid://ddi4xr3jh0m4h" path="res://Assets/Background/bg-world-1.png" id="3_e6p8w"]
 [ext_resource type="PackedScene" uid="uid://d0xj2axm4urk4" path="res://Scenes/player.tscn" id="4_7lqkg"]
 [ext_resource type="Script" path="res://Scenes/player.gd" id="5_oomjm"]
+[ext_resource type="PackedScene" uid="uid://jwonp2nducpi" path="res://Scenes/start.tscn" id="5_tqf7d"]
+[ext_resource type="PackedScene" uid="uid://btl00yvq1qhvt" path="res://Scenes/Loose.tscn" id="6_ne8p8"]
+[ext_resource type="PackedScene" uid="uid://bs0071mdf3dmc" path="res://Scenes/Win.tscn" id="7_u4lio"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6omfn"]
 bg_color = Color(0, 0, 0, 0.392157)
@@ -86,6 +89,7 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -175.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 0
@@ -154,5 +158,18 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_42amw")
 keep_pressed_outside = true
 text = "Coup de pied"
 
+[node name="title screen 1" parent="." instance=ExtResource("5_tqf7d")]
+layout_mode = 1
+
+[node name="Loose" parent="." instance=ExtResource("6_ne8p8")]
+layout_mode = 1
+
+[node name="Win" parent="." instance=ExtResource("7_u4lio")]
+layout_mode = 1
+
 [connection signal="pressed" from="PanelContainer/ActionsPanel/MarginContainer/Actions/Action1" to="." method="_on_action_1_pressed"]
 [connection signal="pressed" from="PanelContainer/ActionsPanel/MarginContainer/Actions/Action2" to="." method="_on_action_2_pressed"]
+[connection signal="start" from="title screen 1" to="." method="_on_title_screen_1_start"]
+[connection signal="rejouer" from="Loose" to="." method="_on_loose_rejouer"]
+[connection signal="continuer" from="Win" to="." method="_on_win_continuer"]
+[connection signal="rejouer" from="Win" to="." method="_on_win_rejouer"]

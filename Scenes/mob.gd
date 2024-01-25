@@ -12,7 +12,7 @@ func _ready():
 	battle = get_parent()
 	var battle_children = battle.get_children()
 	for i in battle_children:
-		print("battle_children child: " ,i)
+		print("battle_children child: ", i)
 	player = battle.get_node("Player")
 
 func _process(_delta):
@@ -42,7 +42,7 @@ func attack_player():
 func translate_to_player_front():
 	var tween = create_tween()
 	var init_position = self.position
-	var target_position = player.position_after_resize + Vector2(300, 0)
+	var target_position = player.position_after_resize + Vector2(150, 0)
 	tween.tween_property(self, "position", target_position, 1).set_trans(Tween.TRANS_LINEAR)
 	tween.tween_interval(1)
 	tween.tween_property(self, "position", init_position, 1).set_trans(Tween.TRANS_LINEAR)

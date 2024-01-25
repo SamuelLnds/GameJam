@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://jwonp2nducpi"]
+
+[ext_resource type="Script" path="res://Scenes/start.gd" id="1_xkicq"]
+[ext_resource type="Texture2D" uid="uid://yykjyyrhgw8p" path="res://Assets/Background/STARTING PAGE.png" id="2_6mraa"]
+[ext_resource type="Script" path="res://Scenes/Button.gd" id="3_pswe6"]
+
+[sub_resource type="Theme" id="Theme_3sly0"]
+
+[node name="title screen 1" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+script = ExtResource("1_xkicq")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 10
+scale = Vector2(0.898438, 0.898437)
+texture = ExtResource("2_6mraa")
+centered = false
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 434.0
+offset_top = 478.0
+offset_right = 716.0
+offset_bottom = 537.0
+theme = SubResource("Theme_3sly0")
+script = ExtResource("3_pswe6")
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

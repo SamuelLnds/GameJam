@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="GameJam"
+run/main_scene="res://Scenes/battle.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -20,7 +21,6 @@ State="*res://Scenes/State.gd"
 
 [display]
 
-window/size/mode=3
 window/size/resizable=false
 
 [rendering]
